@@ -68,7 +68,7 @@ dependencies {
     //Kotlinx serialization
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.converter.kotlinx.serialization)
-    //hilt
+    //Hilt
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
     //Room
@@ -77,4 +77,10 @@ dependencies {
     //Navigation (jetpack compose + hilt navigation)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.hilt.navigation.compose)
+    //Paging
+    implementation(libs.androidx.paging.runtime)
+    implementation(libs.androidx.paging.compose)
+    //Coil
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network.okhttp)
 }

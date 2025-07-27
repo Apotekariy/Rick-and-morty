@@ -1,70 +1,70 @@
-Rick and Morty Android App
-Современное Android приложение для просмотра персонажей из сериала "Rick and Morty", построенное на базе Rick and Morty API. Приложение реализовано с использованием современного Android tech stack и поддерживает полнофункциональную работу в офлайн режиме.
-Основные требования
+# Rick and Morty Android App
 
-Кэширование и офлайн работа
-Поиск и фильтрация (офлайн)
-Навигация
-Обработка пустых состояний
-Pull-to-Refresh
-Индикаторы загрузки
+Современное Android-приложение для просмотра персонажей из сериала "Rick and Morty", использующее [Rick and Morty API](https://rickandmortyapi.com). Реализовано с использованием современных Android-технологий с поддержкой полнофункциональной офлайн-работы.
 
-Технологический стек
-Архитектура
+## Основные функции
+- Кэширование и офлайн-работа
+- Поиск и фильтрация (доступно офлайн)
+- Навигация между экранами
+- Обработка пустых состояний
+- Pull-to-Refresh
+- Индикаторы загрузки
+- Комплексная система логирования
+- Кнопка ручного обновления данных
 
-Clean Architecture с разделением на слои (data, domain, presentation)
-MVVM паттерн с использованием ViewModel
-Repository паттерн для управления данными
+## Технологический стек
+### Архитектура
+- Clean Architecture (data, domain, presentation)
+- MVVM с ViewModel
+- Repository Pattern
 
-Dependency Injection
+### Внедрение зависимостей
+- Dagger Hilt
 
-Dagger Hilt
+### База данных
+- Room Database
+- TypeConverters для сложных типов
 
-База данных
+### Сетевое взаимодействие
+- Retrofit
+- OkHttp
+- Kotlinx Serialization
 
-Room Database
-TypeConverters для сложных типов данных
+### Пагинация
+- Paging 3 с RemoteMediator
 
-Сетевые операции
+### Работа с изображениями
+- Coil 3
 
-Retrofit
-OkHttp
-Kotlinx Serialization
+### Пользовательский интерфейс
+- Jetpack Compose
+- Material Design 3
 
-Пагинация
+### Навигация
+- Navigation Compose
 
-Paging 3 с RemoteMediator для синхронизации сетевых и локальных данных
+### Асинхронные операции
+- Kotlin Coroutines
+- Flow
 
-Изображения
-
-Coil 3 для автоматического кеширования изображений
-
-Пользовательский интерфейс
-
-Jetpack Compose
-Material Design 3 компоненты
-
-Навигация
-
-Navigation Compose
-
-Асинхронность
-
-Kotlin Coroutines
-Flow
-
-Структура проекта
+## Структура проекта
 com.example.rickandmorty/
 ├── data/
-│   ├── local/          # Room database, DAO, entities
-│   ├── remote/         # API service, DTOs, RemoteMediator
-│   └── mappers/        # Mappers между слоями
-├── domain/             # Business logic, repository interfaces, models
-├── presentation/       # UI, ViewModels, Compose screens
-├── di/                 # Dagger Hilt modules
-└── navigation/         # Navigation setup
-Дополнительные возможности
-Система логирования
-Реализуется комплексная система логирования для всех компонентов приложения. Логирование включает отслеживание состояний фильтров и поиска, мониторинг сетевых запросов и ошибок, логирование состояний пагинации и кеширования для эффективной отладки и мониторинга работы системы.
-Кнопка ручного обновления
-Аналогичная функциональность Pull-to-Refresh, реализованная через кнопку в интерфейсе для альтернативного способа обновления данных.
+│ ├── local/ # Room: БД, DAO, сущности
+│ ├── remote/ # API сервис, DTO, RemoteMediator
+│ └── mappers/ # Конвертеры между слоями
+├── domain/ # Бизнес-логика, репозитории, модели
+├── presentation/ # UI: ViewModel, экраны на Compose
+├── di/ # Модули Dagger Hilt
+└── navigation/ # Настройка навигации
+
+## Дополнительные возможности
+### Система логирования
+Комплексное логирование всех компонентов приложения:
+- Отслеживание состояний фильтров и поиска
+- Мониторинг сетевых запросов и ошибок
+- Логирование состояний пагинации и кеширования
+- Анализ работы системы в офлайн-режиме
+
+### Альтернативное обновление данных
+Реализована кнопка ручного обновления в интерфейсе как альтернатива Pull-to-Refresh

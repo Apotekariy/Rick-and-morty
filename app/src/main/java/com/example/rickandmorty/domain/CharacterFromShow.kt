@@ -1,20 +1,14 @@
-package com.example.rickandmorty.data.local
+package com.example.rickandmorty.domain
 
-import androidx.room.Embedded
-import androidx.room.Entity
-import androidx.room.PrimaryKey
-
-@Entity(tableName = "characters")
-data class CharacterEntity(
-    @PrimaryKey
+data class CharacterFromShow(
     val id: Int,
     val name: String,
     val status: String,
     val species: String,
     val type: String,
     val gender: String,
-    @Embedded(prefix = "origin_") val origin: Origin,
-    @Embedded(prefix = "location_") val location: Location,
+    val origin: Origin,
+    val location: Location,
     val image: String,
     val episode: List<String>,
     val url: String,

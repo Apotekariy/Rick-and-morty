@@ -1,5 +1,6 @@
 package com.example.rickandmorty.di
 
+import android.util.Log
 import com.example.rickandmorty.data.remote.ApiService
 import dagger.Module
 import dagger.Provides
@@ -12,6 +13,7 @@ import kotlinx.serialization.json.Json
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.converter.kotlinx.serialization.asConverterFactory
+import java.util.concurrent.TimeUnit
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -19,10 +21,19 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
-        val json = Json { ignoreUnknownKeys = true }
+    fun provideJson(): Json {
+        return Json {
+            ignoreUnknownKeys = true
+            encodeDefaults = true
+            coerceInputValues = true
+        }
+    }
+
+    @Provides
+    @Singleton
+    fun provideRetrofit(okHttpClient: OkHttpClient, json: Json): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("https://rickandmortyapi.com/api")
+            .baseUrl("https://rickandmortyapi.com/api/")
             .client(okHttpClient)
             .addConverterFactory(
                 json.asConverterFactory("application/json".toMediaType())
@@ -33,13 +44,15 @@ object NetworkModule {
     @Provides
     @Singleton
     fun provideApiServices(retrofit: Retrofit): ApiService {
-        return  retrofit.create(ApiService::class.java)
+        return retrofit.create(ApiService::class.java)
     }
 
     @Provides
     @Singleton
     fun provideLoggingInterceptor(): HttpLoggingInterceptor {
-        return HttpLoggingInterceptor().apply {
+        return HttpLoggingInterceptor { message ->
+            Log.d("HTTP", message)
+        }.apply {
             level = HttpLoggingInterceptor.Level.BODY
         }
     }
@@ -51,7 +64,10 @@ object NetworkModule {
     ): OkHttpClient {
         return OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
+            .connectTimeout(30, TimeUnit.SECONDS)
+            .readTimeout(30, TimeUnit.SECONDS)
+            .writeTimeout(30, TimeUnit.SECONDS)
+            .retryOnConnectionFailure(true)
             .build()
     }
-
 }
